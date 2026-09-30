@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useGetSelectedOrganization } from '@/rtk-query/user';
 import { useLazyGetWorkspacesQuery } from '@/rtk-query/workspace';
-import { WorkspaceModalContext } from './workspaceModalContext';
+import { WorkspaceModalContext, type WorkspaceMultiSelectItem } from './workspaceModalContext';
 
 const WorkspaceModalContextProvider = ({ children }) => {
   const { allOrganizations } = useGetSelectedOrganization();
   const [getWorkspaces] = useLazyGetWorkspacesQuery();
   const [workspaceModal, setWorkspaceModal] = useState(false);
   const [selectedWorkspace, setSelectedWorkspace] = useState({ id: '', name: '' });
-  const [multiSelectedContent, setMultiSelectedContent] = useState([]);
+  const [multiSelectedContent, setMultiSelectedContent] = useState<WorkspaceMultiSelectItem[]>([]);
   const [createNewWorkspaceModalOpen, setCreateNewWorkspaceModalOpen] = useState(false);
   // stores the context for currently loaded resource . sometime a user might be viewing a resource
   // from differnt org/workpace than the currently selected one
